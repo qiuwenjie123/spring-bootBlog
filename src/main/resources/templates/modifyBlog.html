@@ -1,0 +1,79 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{layui/css/layui.css}">
+    <script th:src="@{layui/layui.js}"></script>
+    <script th:src="@{layui/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{ckeditor5-build-classic/ckeditor.js}"></script>
+    <script th:src="@{ckeditor5-build-classic/translations/zh-cn.js}">//提供中文支持</script>
+</head>
+<body>
+<form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block" style="width: 150px">
+            <input type="text" name="blogtitle" placeholder="请输入标题" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">博客分类</label>
+        <div class="layui-input-block" style="width: 150px">
+            <select name="interest" lay-filter="aihao" >
+                <div th:each="blogtype : ${blogtypes}">
+                    <option  th:value="${blogtype.id}" th:text="${blogtype.typename}"></option>
+                </div>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关键字</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="keyWord" placeholder="请输入关键字" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" text-align="center">博客内容</label>
+    </div>
+
+    <div class="layui-form-item">
+       <textarea name="content" id="editor">
+       </textarea>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+</form>
+
+
+
+<script>
+    //创建一个富文本编辑器
+    ClassicEditor.create(document.querySelector('#editor'),{
+        language: "zh-cn"
+    }).then(editor=>{
+        console.log(editor);
+    }).catch( error => {
+        console.error( error );
+    });
+</script>
+
+
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
+
+</body>
+</html>

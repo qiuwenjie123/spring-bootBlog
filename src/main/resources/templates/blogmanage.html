@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{layui/css/layui.css}">
+    <script th:src="@{layui/layui.js}"></script>
+    <script th:src="@{layui/jquery-3.3.1.min.js}"></script>
+</head>
+<body>
+<table id="blogtable" lay-filter="blogtabletool">
+</table>
+
+</body>
+<!--工具条-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script type="text/javascript">
+
+        layui.use(['table','laypage','layer','element'], function(){
+            var laypage=layui.laypage,
+                table = layui.table,
+                layer=layui.layer,
+                element = layui.element;
+            //第一个实例
+           table.render({
+                elem: '#blogtable'
+                ,url: '/getAllBlog' //数据接口
+                ,page: true //开启分页
+                ,limit:10
+                ,limits:[5,10,15]
+                ,cols: [    //layui中方括号必须这么写（上下各一个，而不能写成"[["这样,否则thyleaf模板解析错误)
+                    [ //表头
+                    {field: 'id', title: 'ID', width:100,  fixed: 'left'}
+                    ,{field: 'title', title: '标题', width:100}
+                    ,{field: 'releasedate', title: '发布日期', width:100}
+                    ,{field: 'typename', title: '博客类型', width:100}
+                    ,{field: 'option', title: '选项', width:150,toolbar: '#barDemo'}
+                ]
+                ]
+            });
+
+            table.on('tool(blogtabletool)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'del'){ //删除
+                    layer.confirm('真的删除该博客么', function(index){
+                        //向服务端发送删除指令
+                        $.get("delBlog",{
+                            id : data.id
+                        },function(data1,textStatus){
+                            //textStatus假如不是success，不执行回调函数,但是我的后台捕捉了异常，
+                            //所以一定会成功执行这回调函数，故通过后台返回的Msg是否删除成功
+                            if(data1.msg === '200'){
+                                layer.msg("删除成功", {icon :1});
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(index);
+                            }else{
+                                layer.msg("删除失败",{icon :2});
+                                layer.close(index);
+                            }
+                        },"json");
+                    });
+                } else if(layEvent === 'edit'){ //修改
+
+                }
+            });
+        });
+</script>
+
+
+
+
+</html>
+ 
+
+
