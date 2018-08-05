@@ -65,11 +65,21 @@ public class BlogController {
     }
 
 
-    //新增一篇博客
+    //新增一篇博客,或者修改一篇博客
     @RequestMapping(value = "/addBlog",method = RequestMethod.POST)
     @ResponseBody
     public Result addBlog(@RequestBody TBlog tBlog){
-        Result result=new Result();
+        //插入
+        if(tBlog.getId()!=null){
+            //后面带selective意思是为null的字段不更新
+            int i=tBlogMapper.updateByPrimaryKeySelective(tBlog);
+            if(i>0){
+                return new Result("修改成功",200);
+            }else{
+                return new Result("修改失败",400);
+            }
+        }
+        //新增
         Date date=new Date();
         tBlog.setReleasedate(date);
         tBlog.setSummary(tBlog.getContent().substring(0,20));
@@ -77,10 +87,9 @@ public class BlogController {
         tBlog.setReplyhit(0);
         int i=tBlogMapper.insert(tBlog);
         if(i!=1){
-            result.setCode(400);
-            return result;
+            return new Result("新增失败",400);
         }
-        return result;
+        return new Result("新增成功",200);
     }
 
 

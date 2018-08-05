@@ -13,7 +13,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">标题</label>
         <div class="layui-input-block" style="width: 150px">
-            <input type="text" name="blogtitle" id="blogtitle" placeholder="请输入标题" autocomplete="off" class="layui-input" lay-verify="required">
+            <input type="text" name="blogtitle" id="blogtitle" placeholder="请输入标题" autocomplete="off" class="layui-input" lay-verify="required"
+                    th:value="${blog}==null?'':${blog.title}">
         </div>
     </div>
 
@@ -22,7 +23,8 @@
         <div class="layui-input-block" style="width: 150px">
             <select name="interest" id="blogtype">
                 <div th:each="blogtype : ${blogtypes}">
-                    <option  th:value="${blogtype.id}" th:text="${blogtype.typename}"></option>
+                    <option  th:value="${blogtype.id}" th:text="${blogtype.typename}"
+                             th:selected="${blog}==null ?false:(${blog.typeId}==${blogtype.id}?true:false)"></option>
                 </div>
             </select>
         </div>
@@ -31,7 +33,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">关键字</label>
         <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="keyWord" id="keyword" placeholder="请输入关键字" autocomplete="off" class="layui-input" lay-verify="required">
+            <input type="text" name="keyWord" id="keyword" placeholder="请输入关键字" autocomplete="off" class="layui-input"
+                   lay-verify="required" th:value="${blog}==null?'':${blog.keyword}">
         </div>
     </div>
 
@@ -43,6 +46,10 @@
        </textarea>
     </div>
 
+    <input type="text" th:value="${blog}==null?'':${blog.id}" id="blogId" th:hidden="true">
+    <input type="text" th:value="${blog}==null?'':${blog.content}" id="blogContent" th:hidden="true">
+
+
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -50,6 +57,8 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
+
+
 
 </form>
 
@@ -65,6 +74,7 @@
         }
     }).then(neweditor=>{
         editor=neweditor;
+        editor.setData($("#blogContent").val());
         console.log(neweditor);
     }).catch( error => {
         console.error( error );
@@ -80,6 +90,9 @@
             tblog["typeId"]=$("#blogtype option:selected").val();
             tblog["keyword"]=$("#keyword").val();
             tblog["content"]=editor.getData();
+            tblog["id"]=$("#blogId").val();
+
+
 
            $.ajax({
                 url: "/blog/addBlog",
@@ -88,8 +101,8 @@
                 async:false,
                 contentType:'application/json;charset=UTF-8',
                 dataType:'json',
-                success: function () {
-                    alert("新增成功");
+                success: function (data) {
+                    alert(data.msg);
                 },
                 error:function () {
                     alert("联系管理员");
@@ -98,6 +111,8 @@
             return false;
         })
     });
+
+
 
 
 </script>

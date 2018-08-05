@@ -12,6 +12,11 @@ public class Result {
         msg="200";
     }
 
+    public Result(String msg,int code){
+        this.msg=msg;
+        this.code=code;
+    }
+
     public int getCode() {
         return code;
     }

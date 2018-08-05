@@ -90,10 +90,10 @@
 
 <script>
 
-    function opentab(text,url){
+    function opentab(text,url,param){
         element.tabAdd('tabmanager', {
             title:text,
-            content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:450px'src='gethtml?pageName="+url+"'></iframe>",
+            content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:450px'src='gethtml?pageName="+url+"&param="+param+"'></iframe>",
             id:'url'
         });
         abouttab();
