@@ -9,6 +9,15 @@
 <table id="blogtable" lay-filter="blogtabletool">
 </table>
 
+<div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter="tabmanager">
+    <ul class="layui-tab-title">
+
+    </ul>
+    <div class="layui-tab-content" style="height: 100%;">
+
+    </div>
+</div>
+
 </body>
 <!--工具条-->
 <script type="text/html" id="barDemo">
@@ -24,6 +33,7 @@
                 table = layui.table,
                 layer=layui.layer,
                 element = layui.element;
+
             //第一个实例
            table.render({
                 elem: '#blogtable'
@@ -65,8 +75,9 @@
                             }
                         },"json");
                     });
-                } else if(layEvent === 'edit'){ //修改
-
+                } else if(layEvent === 'edit'){//修改
+                    console.log(element);
+                    parent.opentab('新建博客','modifyBlog');
                 }
             });
         });
