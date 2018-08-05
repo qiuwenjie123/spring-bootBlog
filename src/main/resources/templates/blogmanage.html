@@ -27,7 +27,7 @@
             //第一个实例
            table.render({
                 elem: '#blogtable'
-                ,url: '/getAllBlog' //数据接口
+                ,url: '/blog/getAllBlog' //数据接口
                 ,page: true //开启分页
                 ,limit:10
                 ,limits:[5,10,15]
@@ -50,7 +50,7 @@
                 if(layEvent === 'del'){ //删除
                     layer.confirm('真的删除该博客么', function(index){
                         //向服务端发送删除指令
-                        $.get("delBlog",{
+                        $.get("blog/delBlog",{
                             id : data.id
                         },function(data1,textStatus){
                             //textStatus假如不是success，不执行回调函数,但是我的后台捕捉了异常，

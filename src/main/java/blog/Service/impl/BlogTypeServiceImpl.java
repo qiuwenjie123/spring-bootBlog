@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("blogTypeService")
 public class BlogTypeServiceImpl implements BlogTypeService {
 
 
     /**
-     * 分类查询博客分类
+     * 分页查询博客分类
      * @param page
      * @param limit
      * @return

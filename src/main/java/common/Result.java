@@ -7,6 +7,11 @@ public class Result {
     private Object data;
     private String msg;
 
+    //正确的状态码：200
+    public Result(){
+        msg="200";
+    }
+
     public int getCode() {
         return code;
     }

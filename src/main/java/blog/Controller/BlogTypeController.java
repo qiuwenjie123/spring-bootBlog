@@ -22,7 +22,7 @@ public class BlogTypeController {
     TBlogtypeMapper tBlogtypeMapper;
 
 
-    /*************取得数据******************************/
+    /*************取得数据(需要分页)******************************/
     @RequestMapping(value = "/getAllBlogTypeBypage",method = RequestMethod.GET )
     //直接返回JSON数据
     @ResponseBody
