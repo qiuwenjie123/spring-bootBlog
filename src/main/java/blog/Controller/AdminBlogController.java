@@ -18,14 +18,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/blog")
-public class BlogController {
+public class AdminBlogController {
 
     @Autowired
     TBlogMapper tBlogMapper;
     @Autowired
     TBlogtypeMapper tBlogtypeMapper;
 
-    /*************取得数据所有数据******************************/
+    /*************取得所有分类数据******************************/
     @RequestMapping(value = "/getAllBlog",method = RequestMethod.GET )
     //直接返回JSON数据
     @ResponseBody
@@ -94,10 +94,9 @@ public class BlogController {
 
 
     //上传图片,暂未开发
- /*   @RequestMapping(value = "/blog/imageupload")
+    /*@RequestMapping(value = "/blog/imageupload")
     public Result imageUpload(MultipartFile file){
         return new Result();
-
     }*/
 
 

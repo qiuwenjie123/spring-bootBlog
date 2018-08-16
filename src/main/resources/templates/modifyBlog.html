@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{highlight/styles/github.css}">
+
     <script th:src="@{layui/layui.js}"></script>
     <script th:src="@{layui/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{ckeditor5-build-classic/ckeditor.js}">//引入富文本编辑器</script>
-    <script th:src="@{ckeditor5-build-classic/translations/zh-cn.js}">//提供中文支持</script>
+    <script th:src="@{highlight/highlight.pack.js}">//高亮插件</script>
+    <script th:src="@{wangEditor-3.1.1/release/wangEditor.js}">//引入wangeditor</script>
 </head>
 <body>
 <form class="layui-form" id="blogform"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
@@ -41,10 +43,10 @@
     <div class="layui-form-item">
         <label class="layui-form-label" text-align="center" >博客内容</label>
     </div>
-    <div class="layui-form-item">
-       <textarea name="content" id="editor" rows="20">
-       </textarea>
+
+    <div id="editor">
     </div>
+
 
     <input type="text" th:value="${blog}==null?'':${blog.id}" id="blogId" th:hidden="true">
     <input type="text" th:value="${blog}==null?'':${blog.content}" id="blogContent" th:hidden="true">
@@ -58,27 +60,30 @@
         </div>
     </div>
 
-
-
 </form>
 
-
+</body>
 
 <script>
+    /*     //创建一个富文本编辑器
     let editor;
-    //创建一个富文本编辑器
     ClassicEditor.create(document.querySelector('#editor'),{
-        language: "zh-cn",
-        ckfinder: {
-            uploadUrl: '/blog/imageupload'
-        }
-    }).then(neweditor=>{
-        editor=neweditor;
-        editor.setData($("#blogContent").val());
-        console.log(neweditor);
-    }).catch( error => {
-        console.error( error );
-    });
+         language: "zh-cn",
+         ckfinder: {
+             uploadUrl: '/blog/imageupload'
+         }
+     }).then(neweditor=>{
+         editor=neweditor;
+         editor.setData($("#blogContent").val());
+         console.log(neweditor);
+     }).catch( error => {
+         console.error( error );
+     });
+    */
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create();
 
     layui.use('form', function(){
         var form = layui.form;
@@ -89,12 +94,10 @@
             tblog["title"]=$("#blogtitle").val();
             tblog["typeId"]=$("#blogtype option:selected").val();
             tblog["keyword"]=$("#keyword").val();
-            tblog["content"]=editor.getData();
+            tblog["content"]=editor.txt.html();
             tblog["id"]=$("#blogId").val();
 
-
-
-           $.ajax({
+            $.ajax({
                 url: "/blog/addBlog",
                 data:JSON.stringify(tblog),
                 type:'post',
@@ -112,10 +115,6 @@
         })
     });
 
-
-
-
 </script>
 
-</body>
 </html>

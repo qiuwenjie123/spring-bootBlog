@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<title>Black White HTML5 Template</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{css/templatemo_style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="templatemo-logo visible-xs-block">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg logo-left-container">
+			<h1 class="logo-left">Black</h1>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg logo-right-container">
+			<h1 class="logo-right">White</h1>
+		</div>			
+	</div>
+	<div class="templatemo-container">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg left-container">
+			<h1 class="logo-left hidden-xs margin-bottom-60">Black</h1>			
+			<div class="tm-left-inner-container">
+				<ul class="nav nav-stacked templatemo-nav">
+				  <li><a href="index.html" class="active"><i class="fa fa-home fa-medium"></i>Homepage</a></li>
+				  <li><a href="../备用/products.html"><i class="fa fa-shopping-cart fa-medium"></i>Products</a></li>
+				  <li><a href="../备用/services.html"><i class="fa fa-send-o fa-medium"></i>Services</a></li>
+				  <li><a href="../备用/testimonials.html"><i class="fa fa-comments-o fa-medium"></i>Testimonials</a></li>
+				  <li><a href="../备用/about.html"><i class="fa fa-gears fa-medium"></i>About Us</a></li>
+				  <li><a href="../备用/contact.html"><i class="fa fa-envelope-o fa-medium"></i>Contact</a></li>
+				</ul>
+			</div>
+		</div> <!-- left section -->
+        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg right-container">
+			<h1 class="logo-right hidden-xs margin-bottom-60">White</h1>		
+			<div class="tm-right-inner-container">
+				<h1 class="templatemo-header">Black White HTML5 Template</h1>
+				<img th:src="@{images/wooden-desk.jpg}" alt="Wooden Desk" class="img-thumbnail">
+
+				<div th:each="artitle:${articles}">
+					<article>
+						<a th:href="@{'blogdetail/getblog/'+${artitle.id}}"><h2 th:text="${artitle.title}"></h2></a>
+						<p th:text="${artitle.summary}"></p>
+					</article>
+				</div>
+
+				<footer>
+					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-copyright">Copyright &copy; 2084 Your Company Name Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></p>
+					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-social">
+						<a href="#"><i class="fa fa-facebook fa-medium"></i></a>
+						<a href="#"><i class="fa fa-twitter fa-medium"></i></a>
+						<a href="#"><i class="fa fa-google-plus fa-medium"></i></a>
+						<a href="#"><i class="fa fa-youtube fa-medium"></i></a>
+						<a href="#"><i class="fa fa-linkedin fa-medium"></i></a>
+					</p>
+				</footer>
+
+			</div>	
+		</div> <!-- right section -->
+	</div>	
+</body>
+</html>
