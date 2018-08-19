@@ -1,82 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	
-	<title>Black White HTML5 Template</title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/templatemo_style.css}" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" th:href="@{highlight/styles/github.css}">
+  <meta charset="UTF-8">
+  <title>黑色个人博客HTML5模板</title>
+  <meta name="keywords" content="个人博客模板,博客模板,响应式" />
+  <meta name="description" content="个人博客模板，神秘、俏皮。" />
+  <link th:href="@{/css/base.css}" rel="stylesheet">
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+  <link th:href="@{/css/media.css}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 
-        <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
- 	<script th:src="@{highlight/highlight.pack.js}">//高亮插件</script> <!--  -->
-	<script>hljs.initHighlightingOnLoad();</script>
+<!--[if lt IE 9]>
+  <script th:src="@{/js/modernizr.js}"></script>
+<![endif]-->
+
+  <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+  <!--引入bootstrap-->
+  <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+  <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+
 </head>
 <body>
-	<div class="templatemo-logo visible-xs-block">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg logo-left-container">
-			<h1 class="logo-left">Black</h1>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg logo-right-container">
-			<h1 class="logo-right">White</h1>
-		</div>			
-	</div>
-	<div class="templatemo-container">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg left-container">
-			<h1 class="logo-left hidden-xs margin-bottom-60">Black</h1>			
-			<div class="tm-left-inner-container">
-				<ul class="nav nav-stacked templatemo-nav">
-				  <li><a href="index.html" class="active"><i class="fa fa-home fa-medium"></i>Homepage</a></li>
-				  <li><a href="#"><i class="fa fa-shopping-cart fa-medium"></i>Products</a></li>
-				  <li><a href="#"><i class="fa fa-send-o fa-medium"></i>Services</a></li>
-				  <li><a href="#"><i class="fa fa-comments-o fa-medium"></i>Testimonials</a></li>
-				  <li><a href="#"><i class="fa fa-gears fa-medium"></i>About Us</a></li>
-				  <li><a href="#"><i class="fa fa-envelope-o fa-medium"></i>Contact</a></li>
-				</ul>
-			</div>
-		</div> <!-- left section -->
-        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg right-container">
-			<h1 class="logo-right hidden-xs margin-bottom-60">White</h1>		
-			<div class="tm-right-inner-container">
+<div class="ibody">
+  <header>
+    <h1>如影随形</h1>
+    <h2 style="font-size: 100%; font-weight: normal;padding: 0">影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
+    <div class="logo"><a href="/"></a></div>
+    <nav id="topnav"><a href="/">首页</a><a href="/getblogbytype/1">Java</a><a href="/getblogbytype/2">常用框架</a><a href="/getblogbytype/3">数据结构</a><a href="/getblogbytype/4">Jvm</a></nav>
+  </header>
 
-				<h1 class="templatemo-header" th:text="${blog.title}"></h1>
+  <article style=" word-break: break-all;word-wrap: break-word; ">
+    <h2 class="about_h">您现在的位置是：首页><a th:text="${typename}" th:href="'/getblogbytype/'+${blog.typeId}"></a>><a th:text="${blog.title}"></a></h2>
+    <div class="index_about">
+      <h2 class="c_titile" th:text="${blog.title}"></h2>
+      <p class="box_c"><span class="d_time" th:text="'发布时间：'+${blog.date}"></span><span th:text="'浏览（'+${blog.clickhit}+')'"></span><span th:text="'评论（'+${blog.replyhit}+')'"></span></p>
+      <div th:text="${blog.content}" id="content"></div>
+      <input id="blogId" th:hidden="true" th:value="${blog.id}">
+    </div>
 
-				<div th:text="${blog.content}" id="content"></div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
 
-				<footer>
-					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-copyright">Copyright &copy; 2084 Your Company Name Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></p>
-					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-social">
-						<a href="#"><i class="fa fa-facebook fa-medium"></i></a>
-						<a href="#"><i class="fa fa-twitter fa-medium"></i></a>
-						<a href="#"><i class="fa fa-google-plus fa-medium"></i></a>
-						<a href="#"><i class="fa fa-youtube fa-medium"></i></a>
-						<a href="#"><i class="fa fa-linkedin fa-medium"></i></a>
-					</p>
-				</footer>
+    <form role="form" target="iframe">
+      <div class="form-group">
+        <label for="name">名称</label>
+        <input type="text" class="form-control" id="name" placeholder="请输入你的昵称">
+      </div>
 
-			</div>	
-		</div> <!-- right section -->
-	</div>	
+      <div class="form-group">
+        <label for="comment">评论</label>
+        <textarea  class="form-control" placeholder="请留下你的评论" id="comment"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default" id="CommentSubmit" onclick="javascript:commitsubmit()">提交</button>
+    </form>
+
+      <iframe id="iframe" name="iframe" style="display:none;">阻止页面跳转</iframe>
+  </article>
+
+  <aside>
+    <div class="rnav">
+      <li class="rnav1 "><a href="/getblogbytype/1">Java</a></li>
+      <li class="rnav2 "><a href="/getblogbytype/2">常用框架</a></li>
+      <li class="rnav3 "><a href="/getblogbytype/3">数据结构</a></li>
+      <li class="rnav4 "><a href="/getblogbytype/4">Jvm</a></li>
+    </div>
+    <div class="ph_news">
+      <h2>
+        <p>最新评论</p>
+      </h2>
+      <p th:if="${#lists.isEmpty(comments)}">暂无评论</p>
+      <ul class="pl_n" th:each="comment:${comments}">
+        <dl>
+          <dt><img th:src="@{/images/008.jpg}"> </dt>
+          <dt> </dt>
+          <dd th:text="${comment.nickname}">
+          </dd>
+          <dd><a href="/" th:text="${comment.content}"></a></dd>
+        </dl>
+      </ul>
+    </div>
+
+  </aside>
+
+  <script th:src="@{/js/silder.js}"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+<div style="text-align:center;">
+  <p>Copyright © 2018 - 2019</p>
+  <p>蜀ICP备11002373号-1</p>
+</div>
 </body>
 
 <script>
 
-	/*$(function(){
-		$('pre code').each(function(i, block) {
-			hljs.highlightBlock(block);
-		});
-	});*/
-
-    /将文本转成html
+    //将文本转成html
     var content=$("#content").text();
+    //console.log(content);
     $("#content").html(content);
 
-</script>
+    function commitsubmit(){
 
+        var nickname=$("#name").val();
+        var comment=$("#comment").val();
+        if(nickname==null||comment==null){
+            alert("昵称和评论内容不能为空");
+        }else{
+            $.ajax({
+                type:"post",
+                url:"/comment/submit",
+                data:{nickname:nickname,str:comment,blogId:$("#blogId").val()},
+                dataType:"json",
+                success:function (data){
+                    alert(data.msg);
+                    $("#name").val("");
+                    $("#comment").val("");
+                }
+            })
+        }
+    }
+
+</script>
 </html>

@@ -29,13 +29,19 @@ public class TBlog implements Serializable {
     private Date releasedate;
 
     /**
-     * 评论次数
+     * 显示的短日期
+     */
+    @Transient
+    private String date;
+
+    /**
+     * 点击次数
      */
     @Column(name = "clickHit")
     private Integer clickhit;
 
     /**
-     * 回复次数
+     * 评论次数
      */
     @Column(name = "replyHit")
     private Integer replyhit;
@@ -233,6 +239,14 @@ public class TBlog implements Serializable {
     }
     public String getTypename() {
         return typename;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

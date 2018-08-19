@@ -1,67 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	
-	<title>Black White HTML5 Template</title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{css/font-awesome.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{css/templatemo_style.css}" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<title>黑色个人博客HTML5模板</title>
+  <meta name="keywords" content="个人博客模板,博客模板,响应式" />
+  <meta name="description" content="个人博客模板，神秘、俏皮。" />
+
+  <link th:href="@{/css/base.css}" rel="stylesheet">
+  <link th:href="@{/css/index.css}" rel="stylesheet">
+  <link th:href="@{/css/media.css}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+
+  <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+
+  <!--[if lt IE 9]>
+  <script th:src="@{/js/modernizr.js}"></script>
+  <![endif]-->
+
+  <!--引入bootstrap-->
+  <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+  <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+
+
 </head>
 <body>
-	<div class="templatemo-logo visible-xs-block">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg logo-left-container">
-			<h1 class="logo-left">Black</h1>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg logo-right-container">
-			<h1 class="logo-right">White</h1>
-		</div>			
-	</div>
-	<div class="templatemo-container">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg left-container">
-			<h1 class="logo-left hidden-xs margin-bottom-60">Black</h1>			
-			<div class="tm-left-inner-container">
-				<ul class="nav nav-stacked templatemo-nav">
-				  <li><a href="index.html" class="active"><i class="fa fa-home fa-medium"></i>Homepage</a></li>
-				  <li><a href="../备用/products.html"><i class="fa fa-shopping-cart fa-medium"></i>Products</a></li>
-				  <li><a href="../备用/services.html"><i class="fa fa-send-o fa-medium"></i>Services</a></li>
-				  <li><a href="../备用/testimonials.html"><i class="fa fa-comments-o fa-medium"></i>Testimonials</a></li>
-				  <li><a href="../备用/about.html"><i class="fa fa-gears fa-medium"></i>About Us</a></li>
-				  <li><a href="../备用/contact.html"><i class="fa fa-envelope-o fa-medium"></i>Contact</a></li>
-				</ul>
-			</div>
-		</div> <!-- left section -->
-        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 white-bg right-container">
-			<h1 class="logo-right hidden-xs margin-bottom-60">White</h1>		
-			<div class="tm-right-inner-container">
-				<h1 class="templatemo-header">Black White HTML5 Template</h1>
-				<img th:src="@{images/wooden-desk.jpg}" alt="Wooden Desk" class="img-thumbnail">
+<div class="ibody">
+  <header>
+    <h1>如影随形</h1>
+    <h2 style="font-size: 100%; font-weight: normal;padding: 0">影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
+    <div class="logo"><a href="/"></a></div>
+    <nav id="topnav"><a href="/">首页</a><a href="/getblogbytype/1">Java</a><a href="/getblogbytype/2">常用框架</a><a href="/getblogbytype/3">数据结构</a><a href="/getblogbytype/4">Jvm</a></nav>
+  </header>
 
-				<div th:each="artitle:${articles}">
-					<article>
-						<a th:href="@{'blogdetail/getblog/'+${artitle.id}}"><h2 th:text="${artitle.title}"></h2></a>
-						<p th:text="${artitle.summary}"></p>
-					</article>
-				</div>
 
-				<footer>
-					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-copyright">Copyright &copy; 2084 Your Company Name Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></p>
-					<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 templatemo-social">
-						<a href="#"><i class="fa fa-facebook fa-medium"></i></a>
-						<a href="#"><i class="fa fa-twitter fa-medium"></i></a>
-						<a href="#"><i class="fa fa-google-plus fa-medium"></i></a>
-						<a href="#"><i class="fa fa-youtube fa-medium"></i></a>
-						<a href="#"><i class="fa fa-linkedin fa-medium"></i></a>
-					</p>
-				</footer>
+  <article>
+    <div class="banner">
+      <ul class="texts">
+        <p>如果你掉进了黑暗里，你能做的，不过是静心等待，直到你的双眼适应黑暗。</p>
+        <p>活着就意味必须要做点什么，请好好努力。 </p>
+      </ul>
+    </div>
+    <div class="bloglist">
+      <h2>
+        <p th:if="${typename}==null"><span>全部</span>文章</p>
+        <p th:text="${typename}"><span>全部</span>文章</p>
+      </h2>
+      <h2 th:if="${#lists.isEmpty(articles)}">该分类下暂无文章</h2>
+      <div th:each="artitle:${articles}">
+        <div class="blogs">
+          <h3><a th:href="@{'/blogdetail/getblog/'+${artitle.id}}" th:text="${artitle.title}"></a></h3>
+          <figure><img th:src="@{/images/01.jpg}" ></figure>
+          <ul>
+            <p th:text="${artitle.summary}"></p>
+            <a th:href="@{'/blogdetail/getblog/'+${artitle.id}}"  class="readmore">阅读全文&gt;&gt;</a>
+          </ul>
+          <p class="autor"><span>分类：【<a href="#" th:text="${artitle.typename}"></a>】</span></p>
+          <div class="dateview" th:text="${artitle.date}"></div>
+        </div>
+      </div>
+    </div>
+  </article>
 
-			</div>	
-		</div> <!-- right section -->
-	</div>	
+  <aside>
+    <div class="avatar"><a href="/"><span>关于我</span></a></div>
+    <div class="topspaceinfo">
+      <h1>执子之手，与子偕老</h1>
+      <p>于千万人之中，我遇见了我所遇见的人....</p>
+    </div>
+    <div class="about_c">
+      <p>网名：宇宙大爆炸</p>
+      <p>职业：java程序员 </p>
+      <p>地址：广州</p>
+      <p>邮箱：932964177@qq.com</p>
+    </div>
+    <div class="tj_news">
+      <h2>
+        <p class="tj_t1">文章分类</p>
+      </h2>
+      <ul th:each="blogtype:${blogtypes}">
+        <li><a th:href="'/getblogbytype/'+${blogtype.id}" th:text="${blogtype.typename}"></a></li>
+      </ul>
+    </div>
+    <div class="links">
+      <h2>
+        <p>其他链接</p>
+      </h2>
+      <ul>
+        <li><a href="https://blog.csdn.net/qiuwenjie123">CSDN</a></li>
+        <li><a href="https://github.com/qiuwenjie123">Github</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <div style="width: 73%" th:if="${#lists.size(articles)}>0">
+    <ul class="pagination">
+      <li th:class="${currentpage==1}?'disabled':'btn'">
+        <a th:attr="href='?page=1'" aria-label="Previous" th:class="${currentpage==1}?'btn disabled':'btn'">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li th:class="${currentpage==1}?'disabled':'btn'">
+        <a th:attr="href='?page='+${currentpage-1}" th:class="${currentpage==1}?'btn disabled':'btn'">
+          <span aria-hidden="true">&lt;</span>
+        </a>
+      </li>
+
+      <li th:if="${startpage<=allpages}"><a th:attr="href='?page='+${startpage}" th:text="${startpage}" class="btn"></a></li>
+      <li th:if="${startpage+1<=allpages}"><a th:attr="href='?page='+${startpage+1}" th:text="${startpage+1}" class="btn"></a></li>
+      <li th:if="${startpage+2<=allpages}"><a th:attr="href='?page='+${startpage+2}" th:text="${startpage+2}" class="btn"></a></li>
+      <li th:if="${startpage+3<=allpages}"><a th:attr="href='?page='+${startpage+3}" th:text="${startpage+3}" class="btn"></a></li>
+      <li th:if="${startpage+4<=allpages}"><a th:attr="href='?page='+${startpage+4}" th:text="${startpage+4}" class="btn"></a></li>
+
+      <li th:class="${currentpage==allpages}?'disabled':''">
+        <a th:attr="href='?page='+${currentpage+1}" th:class="${currentpage==allpages}?'btn disabled':'btn'">
+          <span aria-hidden="true">&gt;</span>
+        </a>
+      </li>
+      <li th:class="${currentpage==allpages}?'disabled':''">
+        <a th:attr="href='?page='+${allpages}" aria-label="Next" th:class="${currentpage==allpages}?'btn disabled':'btn'">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <script th:src="@{/js/silder.js}"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+
+
+<div style="text-align:center;">
+  <p>Copyright © 2018 - 2019</p>
+  <p>蜀ICP备11002373号-1</p>
+</div>
+
 </body>
+
+<script>
+</script>
+
 </html>

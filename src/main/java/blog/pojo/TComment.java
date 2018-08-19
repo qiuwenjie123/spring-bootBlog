@@ -13,7 +13,7 @@ public class TComment implements Serializable {
     private Integer id;
 
     /**
-     * 用户ip
+     * 用户ip(外加一个昵称)
      */
     @Column(name = "user_ip")
     private String userIp;
@@ -39,6 +39,12 @@ public class TComment implements Serializable {
      * 评论内容
      */
     private String content;
+
+    /**
+     * 评论人昵称
+     */
+    @Transient
+    private String nickname;
 
     private static final long serialVersionUID = 1L;
 
@@ -148,6 +154,14 @@ public class TComment implements Serializable {
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @Override

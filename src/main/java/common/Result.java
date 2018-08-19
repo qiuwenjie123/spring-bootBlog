@@ -8,6 +8,7 @@ public class Result {
     private String msg;
 
     //正确的状态码：200
+    //错误的状态码：400
     public Result(){
         msg="200";
     }

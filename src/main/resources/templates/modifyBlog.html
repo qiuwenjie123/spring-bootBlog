@@ -84,6 +84,10 @@
     var editor = new E('#editor');
     // 或者 var editor = new E( document.getElementById('editor') )
     editor.create();
+    var blogContent=$("#blogContent").val();
+    editor.txt.html(blogContent);
+
+
 
     layui.use('form', function(){
         var form = layui.form;
@@ -114,6 +118,8 @@
             return false;
         })
     });
+
+
 
 </script>
 
