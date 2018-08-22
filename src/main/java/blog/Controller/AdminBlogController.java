@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/blog")
+@RequestMapping(value = "/admin/blog")
 public class AdminBlogController {
 
     @Autowired

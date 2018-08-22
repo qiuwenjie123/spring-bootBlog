@@ -23,7 +23,7 @@ public class BlogTypeController {
 
 
     /*************取得数据(需要分页)******************************/
-    @RequestMapping(value = "/getAllBlogTypeBypage",method = RequestMethod.GET )
+    @RequestMapping(value = "/admin/getAllBlogTypeBypage",method = RequestMethod.GET )
     //直接返回JSON数据
     @ResponseBody
     public Result getBlogTypeByPage(@RequestParam(value = "page",defaultValue = "1")int page,
@@ -43,7 +43,7 @@ public class BlogTypeController {
     }
 
     /*************取得所有数据******************************/
-    @RequestMapping(value = "/getAllBlogType",method = RequestMethod.GET )
+    @RequestMapping(value = "/admin/getAllBlogType",method = RequestMethod.GET )
     @ResponseBody
     public List<TBlogtype> getAllBlogType(){
         List<TBlogtype> list=tBlogtypeMapper.selectAll();
@@ -51,7 +51,7 @@ public class BlogTypeController {
     }
 
     /*************删除数据******************************/
-    @RequestMapping(value="/delBlogType",method = RequestMethod.GET)
+    @RequestMapping(value="/admin/delBlogType",method = RequestMethod.GET)
     @ResponseBody
     public Result delBlogType(@RequestParam(value = "id")int id){
         //根据主键删除数据
@@ -67,7 +67,7 @@ public class BlogTypeController {
     }
 
     /*************增加数据******************************/
-    @RequestMapping(value="/addBlogType",method = RequestMethod.GET)
+    @RequestMapping(value="/admin/addBlogType",method = RequestMethod.GET)
     @ResponseBody
     public Result addBlogType(@RequestParam(value = "typename")String typename) {
         TBlogtype  tBlogtype=new TBlogtype();
@@ -84,7 +84,7 @@ public class BlogTypeController {
     }
 
     /*************编辑数据******************************/
-    @RequestMapping(value="/editBlogType",method = RequestMethod.GET)
+    @RequestMapping(value="/admin/editBlogType",method = RequestMethod.GET)
     @ResponseBody
     public Result editBlogType(@RequestParam(value = "id")int id,
                                @RequestParam(value = "typename")String typename) {
