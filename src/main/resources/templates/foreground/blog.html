@@ -22,6 +22,7 @@
 </head>
 <body>
 <div class="ibody">
+
   <header>
     <h1>如影随形</h1>
     <h2 style="font-size: 100%; font-weight: normal;padding: 0">影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
@@ -29,12 +30,13 @@
     <nav id="topnav"><a href="/">首页</a><a href="/getblogbytype/1">Java</a><a href="/getblogbytype/2">常用框架</a><a href="/getblogbytype/3">数据结构</a><a href="/getblogbytype/4">Jvm</a></nav>
   </header>
 
+
   <article style=" word-break: break-all;word-wrap: break-word; ">
     <h2 class="about_h">您现在的位置是：首页><a th:text="${typename}" th:href="'/getblogbytype/'+${blog.typeId}"></a>><a th:text="${blog.title}"></a></h2>
     <div class="index_about">
       <h2 class="c_titile" th:text="${blog.title}"></h2>
       <p class="box_c"><span class="d_time" th:text="'发布时间：'+${blog.date}"></span><span th:text="'浏览（'+${blog.clickhit}+')'"></span><span th:text="'评论（'+${blog.replyhit}+')'"></span></p>
-      <div th:text="${blog.content}" id="content"></div>
+      <div th:text="${blog.content}" id="content" class="blogcontent"></div>
       <input id="blogId" th:hidden="true" th:value="${blog.id}">
     </div>
 

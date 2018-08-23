@@ -29,12 +29,21 @@ public class MAIN {
     @Autowired
     TBlogMapper tBlogMapper;
 
+    /**
+     * 打开后台主页
+     * @return
+     */
     @RequestMapping("/admin/hello")
     public String mmm(){
         return "main";
     }
 
-
+    /**
+     * 执行登录操作
+     * @param tBlogger
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/tologin", method = RequestMethod.POST)
     public String login(TBlogger tBlogger, HttpServletRequest request){
         //获取登录实体
@@ -57,6 +66,10 @@ public class MAIN {
         }
     }
 
+    /**
+     * 跳转到登录页面
+     * @return
+     */
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String tologin(){
         return "login";
