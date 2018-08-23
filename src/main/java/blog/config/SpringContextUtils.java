@@ -1,4 +1,4 @@
-package com.how2java.util;
+package blog.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

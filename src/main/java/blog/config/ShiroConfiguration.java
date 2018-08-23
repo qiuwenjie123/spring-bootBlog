@@ -9,7 +9,6 @@ import javax.servlet.Filter;
 import blog.realm.MyRealm;
 import blog.realm.SystemLogout;
 import blog.realm.URLPathMatchingFilter;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -24,10 +23,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShiroConfiguration {
 
-    @Bean
+
     public SystemLogout getLogout(){
         return new SystemLogout();
     }
+
 
     @Bean
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
@@ -56,7 +56,7 @@ public class ShiroConfiguration {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/");
         //未授权界面;
         //shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
         //拦截器.
@@ -68,11 +68,13 @@ public class ShiroConfiguration {
         //退出操作
         customisedFilter.put("logout",getLogout());
         //拦截请求
-        customisedFilter.put("url", getURLPathMatchingFilter());
+        //customisedFilter.put("url", getURLPathMatchingFilter());
 
-        //配置映射关系
+        //配置映射关系（这里顺序很重要）
         filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/logout", "logout");;
+        filterChainDefinitionMap.put("/static/**", "anon");
+        //虽然logout有默认的实现，但是这里会被我自定义的覆盖
+        filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/admin/**", "authc");
 
         shiroFilterFactoryBean.setFilters(customisedFilter);
@@ -80,9 +82,7 @@ public class ShiroConfiguration {
         return shiroFilterFactoryBean;
     }
 
-
-
-
+    //这里没用到
     public URLPathMatchingFilter getURLPathMatchingFilter() {
         return new URLPathMatchingFilter();
     }

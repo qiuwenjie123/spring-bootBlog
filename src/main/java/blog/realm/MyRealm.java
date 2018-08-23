@@ -3,10 +3,7 @@ package blog.realm;
 import blog.dao.TBloggerMapper;
 import blog.pojo.TBlogger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -45,11 +42,13 @@ public class MyRealm extends AuthorizingRealm{
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;
         String username = (String) authenticationToken.getPrincipal(); //获取用户名
+        String password = new String(token.getPassword());
         TBlogger tBlogger=new TBlogger();
         tBlogger.setUsername(username);
-        TBlogger blogger = bloggerService.selectOne(tBlogger); //重数据库查询用户信息
-        if (blogger != null) {
+        TBlogger blogger = bloggerService.selectOne(tBlogger); //从数据库查询用户信息
+        if (blogger != null&&blogger.getPassword().equals(password)) {
             SecurityUtils.getSubject().getSession().setAttribute("currentUser", blogger);//把当前用户存到session中
             AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(
                     blogger.getUsername(), blogger.getPassword(), "MyRealm");

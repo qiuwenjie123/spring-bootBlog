@@ -12,7 +12,7 @@ public class SystemLogout extends LogoutFilter {
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
         //设置重新登录的路由
-        this.setRedirectUrl("/login");
+        //this.setRedirectUrl("/login");
         Subject subject=getSubject(request,response);
         String redirectUrl=getRedirectUrl(request,response,subject);
         // ServletContext context= request.getServletContext();

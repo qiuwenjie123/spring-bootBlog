@@ -35,7 +35,7 @@ public class MAIN {
     }
 
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/tologin", method = RequestMethod.POST)
     public String login(TBlogger tBlogger, HttpServletRequest request){
         //获取登录实体
         Subject subject = SecurityUtils.getSubject();
@@ -55,6 +55,11 @@ public class MAIN {
             request.setAttribute("errorInfo", "用户名或密码错误");
             return "/login";
         }
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String tologin(){
+        return "login";
     }
 
 
