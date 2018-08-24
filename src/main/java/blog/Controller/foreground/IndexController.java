@@ -8,6 +8,9 @@ import blog.pojo.TBlog;
 import blog.pojo.TBlogtype;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -60,6 +63,16 @@ public class IndexController {
 
         PageInfo<TBlog> data=new PageInfo<>(list);
         List<TBlog> result=data.getList();
+
+        /*
+        //有图片的话就取出第一张的图片
+        Document doc=Jsoup.parse(tBlog.getContent());
+        Elements elements=doc.select("img");
+        if(elements.size()>0){
+            String imgsrc=elements.get(0).attr("src");
+            request.setAttribute("imgsrc",imgsrc);
+        }
+        */
 
         //处理显示的日期，和查询分类名称
         for(TBlog tBlog:result){

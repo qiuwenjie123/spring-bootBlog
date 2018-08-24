@@ -22,6 +22,8 @@
   <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
 
+
+
 </head>
 <body>
 <div class="ibody">
@@ -65,7 +67,7 @@
     <div class="avatar"><a href="/"><span>关于我</span></a></div>
     <div class="topspaceinfo">
       <h1>执子之手，与子偕老</h1>
-      <p>于千万人之中，我遇见了我所遇见的人....</p>
+      <p id="onePerDay">于千万人之中，我遇见了我所遇见的人....</p>
     </div>
     <div class="about_c">
       <p>网名：宇宙大爆炸</p>
@@ -125,7 +127,7 @@
     </ul>
   </div>
 
-  <script th:src="@{/js/silder.js}"></script>
+
   <div class="clear"></div>
   <!-- 清除浮动 --> 
 </div>
@@ -139,6 +141,27 @@
 </body>
 
 <script>
+  var data;
+  $(function () {
+      init();
+  })
+
+  function init(){
+
+      $.ajax({
+          url: "http://open.iciba.com/dsapi/",
+          type: "get",
+          data: null,
+          dataType: "json",
+          success: function (rdata) {
+              rdata=JSON.parse(rdata);
+              data[Eng]=rdata[content];
+              data[chinese]=rdata[note];
+              $("#onePerDay").text(rdata[note]);
+          }
+      });
+
+  }
 </script>
 
 </html>

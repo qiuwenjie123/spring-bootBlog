@@ -9,6 +9,9 @@ import blog.pojo.TBlogtype;
 import blog.pojo.TComment;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,9 @@ public class BlogController {
     public String getblog(@PathVariable(value = "id")Integer id, HttpServletResponse response){
 
         TBlog tBlog=tBlogMapper.selectByPrimaryKey(id);
+        if(tBlog==null){
+            return "redirect:/error";
+        }
         Date date=tBlog.getReleasedate();
         if(date!=null) {
             tBlog.setDate(dateProcess.cutToShort(tBlog.getReleasedate(),0));

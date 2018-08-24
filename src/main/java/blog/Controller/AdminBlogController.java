@@ -82,7 +82,13 @@ public class AdminBlogController {
         //新增
         Date date=new Date();
         tBlog.setReleasedate(date);
-        tBlog.setSummary(tBlog.getContent().substring(0,20));
+
+        String text=tBlog.getText();
+        if(text.length()>70){
+            tBlog.setSummary(text.substring(0,70)+"...");
+        }else{
+            tBlog.setSummary(text);
+        }
         tBlog.setClickhit(0);
         tBlog.setReplyhit(0);
         int i=tBlogMapper.insert(tBlog);

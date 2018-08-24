@@ -99,6 +99,7 @@
             tblog["typeId"]=$("#blogtype option:selected").val();
             tblog["keyword"]=$("#keyword").val();
             tblog["content"]=editor.txt.html();
+            tblog["text"]=editor.txt.text();
             tblog["id"]=$("#blogId").val();
 
             $.ajax({

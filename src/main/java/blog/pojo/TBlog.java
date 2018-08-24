@@ -66,9 +66,15 @@ public class TBlog implements Serializable {
 
 
     /**
-     * 博客内容
+     * 博客内容(含html)
      */
     private String content;
+
+    /**
+     * 博客内容(不含html)
+     */
+    @Transient
+    private String text;
 
     private static final long serialVersionUID = 1L;
 
@@ -244,9 +250,15 @@ public class TBlog implements Serializable {
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getText() {
+        return text;
+    }
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
