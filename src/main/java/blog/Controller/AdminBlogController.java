@@ -7,10 +7,6 @@ import blog.pojo.TBlogtype;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import common.Result;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -83,20 +79,9 @@ public class AdminBlogController {
                 return new Result("修改失败",400);
             }
         }
-
         //新增
         Date date=new Date();
         tBlog.setReleasedate(date);
-
-        Document doc=Jsoup.parse(tBlog.getContent());
-        Elements elements=doc.select("code");
-        for(Element element:elements){
-            element.addClass("language-java");
-        }
-        //禁止优化html
-        doc.outputSettings().prettyPrint(false);
-        System.out.println(doc.html());
-        tBlog.setContent(doc.html());
 
         String text=tBlog.getText();
         if(text.length()>70){

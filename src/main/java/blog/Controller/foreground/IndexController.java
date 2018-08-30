@@ -6,26 +6,20 @@ import blog.dao.TBlogMapper;
 import blog.dao.TBlogtypeMapper;
 import blog.pojo.TBlog;
 import blog.pojo.TBlogtype;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import common.Result;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -54,11 +48,6 @@ public class IndexController {
     @Value("${myindex.artitleSum}")
     String sum;
 
-    /**
-     * 打开首页
-     * @param page
-     * @return
-     */
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String toIndex(@RequestParam(value = "page",defaultValue = "1")int page){
 
@@ -110,12 +99,6 @@ public class IndexController {
     }
 
 
-    /**
-     * 打开分类文章
-     * @param type
-     * @param page
-     * @return
-     */
     @RequestMapping(value = "/getblogbytype/{type}",method = RequestMethod.GET)
     public String getblogbytype(@PathVariable(value = "type") int type,
                                 @RequestParam(value = "page",defaultValue = "1")int page){
@@ -164,42 +147,4 @@ public class IndexController {
         return "foreground/index";
     }
 
-
-    /**
-     * 获取每日一说
-     * @return
-     */
-    @RequestMapping("/getone")
-    @ResponseBody
-    public Result getOne(){
-
-        StringBuilder temp=new StringBuilder();
-        int i=0;
-        Result result=new Result();
-        CloseableHttpClient httpClient= HttpClients.createDefault();
-        CloseableHttpResponse httpResponse=null;
-        HttpGet httpGet=new HttpGet("http://open.iciba.com/dsapi/");
-        try{
-            httpResponse=httpClient.execute(httpGet);
-            HttpEntity entity = httpResponse.getEntity();
-            if(entity!=null){
-                InputStream inputStream=entity.getContent();
-                byte[] b=new byte[2048];
-                while((i=inputStream.read(b))!=-1){
-                    //去掉空格，然后初始化
-                    temp.append(new String(b).trim());
-                    b=new byte[2048];
-                }
-                JSONObject jsonObject= JSON.parseObject(temp.toString());
-                inputStream.close();
-                result.setData(jsonObject.getString("note"));
-            }else{
-                httpResponse.close();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-            return result;
-        }
-        return result;
-    }
 }

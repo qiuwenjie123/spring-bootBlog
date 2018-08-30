@@ -1,8 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!--此处要设置页面的编码，否则代码高亮不起作用-->
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="UTF-8">
   <title>黑色个人博客HTML5模板</title>
   <meta name="keywords" content="个人博客模板,博客模板,响应式" />
   <meta name="description" content="个人博客模板，神秘、俏皮。" />
@@ -10,21 +9,15 @@
   <link th:href="@{/css/style.css}" rel="stylesheet">
   <link th:href="@{/css/media.css}" rel="stylesheet">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
-  <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
-  <script th:src="@{/js/blog.js}"></script>
 
 <!--[if lt IE 9]>
   <script th:src="@{/js/modernizr.js}"></script>
 <![endif]-->
 
+  <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
   <!--引入bootstrap-->
   <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
   <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
-
-  <link th:href="@{/css/atom-one-dark.css}" rel="stylesheet">
-  <script th:src="@{/js/highlight.pack.js}"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-
 
 </head>
 <body>
@@ -43,8 +36,7 @@
     <div class="index_about">
       <h2 class="c_titile" th:text="${blog.title}"></h2>
       <p class="box_c"><span class="d_time" th:text="'发布时间：'+${blog.date}"></span><span th:text="'浏览（'+${blog.clickhit}+')'"></span><span th:text="'评论（'+${blog.replyhit}+')'"></span></p>
-      <div  id="content" class="blogcontent"></div>
-      <input id="contenttemp" th:hidden="true" th:value="${blog.content}">
+      <div th:text="${blog.content}" id="content" class="blogcontent"></div>
       <input id="blogId" th:hidden="true" th:value="${blog.id}">
     </div>
 
@@ -100,9 +92,37 @@
 </div>
 <div style="text-align:center;">
   <p>Copyright © 2018 - 2019</p>
-  <p>粤ICP备18099886号-1</p>
+  <p>蜀ICP备11002373号-1</p>
 </div>
 </body>
 
+<script>
 
+    //将文本转成html
+    var content=$("#content").text();
+    //console.log(content);
+    $("#content").html(content);
+
+    function commitsubmit(){
+
+        var nickname=$("#name").val();
+        var comment=$("#comment").val();
+        if(nickname==null||comment==null){
+            alert("昵称和评论内容不能为空");
+        }else{
+            $.ajax({
+                type:"post",
+                url:"/comment/submit",
+                data:{nickname:nickname,str:comment,blogId:$("#blogId").val()},
+                dataType:"json",
+                success:function (data){
+                    alert(data.msg);
+                    $("#name").val("");
+                    $("#comment").val("");
+                }
+            })
+        }
+    }
+
+</script>
 </html>

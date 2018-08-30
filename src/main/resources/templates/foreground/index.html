@@ -66,7 +66,7 @@
   <aside>
     <div class="avatar"><a href="/"><span>关于我</span></a></div>
     <div class="topspaceinfo">
-      <h1>每日一句</h1>
+      <h1>执子之手，与子偕老</h1>
       <p id="onePerDay">于千万人之中，我遇见了我所遇见的人....</p>
     </div>
     <div class="about_c">
@@ -135,13 +135,13 @@
 
 <div style="text-align:center;">
   <p>Copyright © 2018 - 2019</p>
-  <p>粤ICP备18099886号-1</p>
+  <p>蜀ICP备11002373号-1</p>
 </div>
 
 </body>
 
 <script>
-
+  var data;
   $(function () {
       init();
   })
@@ -149,11 +149,15 @@
   function init(){
 
       $.ajax({
-          url: "/getone",
+          url: "http://open.iciba.com/dsapi/",
           type: "get",
+          data: null,
           dataType: "json",
-          success: function (result) {
-              $("#onePerDay").text(result.data);
+          success: function (rdata) {
+              rdata=JSON.parse(rdata);
+              data[Eng]=rdata[content];
+              data[chinese]=rdata[note];
+              $("#onePerDay").text(rdata[note]);
           }
       });
 
