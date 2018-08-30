@@ -9,6 +9,7 @@
   <link th:href="@{/css/base.css}" rel="stylesheet">
   <link th:href="@{/css/index.css}" rel="stylesheet">
   <link th:href="@{/css/media.css}" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 
   <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
@@ -66,8 +67,15 @@
   <aside>
     <div class="avatar"><a href="/"><span>关于我</span></a></div>
     <div class="topspaceinfo">
-      <h1>执子之手，与子偕老</h1>
+      <h1>每日一句</h1>
       <p id="onePerDay">于千万人之中，我遇见了我所遇见的人....</p>
+    </div>
+    <div class="tj_news">
+      <h2>
+        <p class="tj_t1">文章搜索</p>
+      </h2>
+      <input type="text" id="search">
+      <button type="button" class="btn btn-sm" onclick="javascript:tosearch();">搜索</button>
     </div>
     <div class="about_c">
       <p>网名：宇宙大爆炸</p>
@@ -133,15 +141,16 @@
 </div>
 
 
+
 <div style="text-align:center;">
   <p>Copyright © 2018 - 2019</p>
-  <p>蜀ICP备11002373号-1</p>
+  <p>粤ICP备18099886号-1</p>
 </div>
 
 </body>
 
 <script>
-  var data;
+
   $(function () {
       init();
   })
@@ -149,18 +158,27 @@
   function init(){
 
       $.ajax({
-          url: "http://open.iciba.com/dsapi/",
+          url: "/getone",
           type: "get",
-          data: null,
           dataType: "json",
-          success: function (rdata) {
-              rdata=JSON.parse(rdata);
-              data[Eng]=rdata[content];
-              data[chinese]=rdata[note];
-              $("#onePerDay").text(rdata[note]);
+          success: function (result) {
+              $("#onePerDay").text(result.data);
           }
       });
+  }
 
+  function tosearch(){
+      var searchword=$("#search").val();
+     /* $.ajax({
+          url: "/getsearch",
+          type: "get",
+          data: {q:searchword},
+          dataType: "html",
+          success: function () {
+          }
+      });*/
+     var adress='/getsearch?q='+searchword;
+      window.location.href=adress;
   }
 </script>
 

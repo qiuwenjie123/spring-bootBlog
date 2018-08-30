@@ -1,5 +1,6 @@
 package blog.Controller;
 
+import blog.config.BlogIndex;
 import blog.dao.TBlogMapper;
 import blog.dao.TBlogtypeMapper;
 import blog.pojo.TBlog;
@@ -24,8 +25,10 @@ public class AdminBlogController {
     TBlogMapper tBlogMapper;
     @Autowired
     TBlogtypeMapper tBlogtypeMapper;
+    @Autowired
+    BlogIndex blogIndex;
 
-    /*************取得所有分类数据******************************/
+    /*************取得所有博客数据******************************/
     @RequestMapping(value = "/getAllBlog",method = RequestMethod.GET )
     //直接返回JSON数据
     @ResponseBody
@@ -69,33 +72,41 @@ public class AdminBlogController {
     @RequestMapping(value = "/addBlog",method = RequestMethod.POST)
     @ResponseBody
     public Result addBlog(@RequestBody TBlog tBlog){
-        //插入
-        if(tBlog.getId()!=null){
-            //后面带selective意思是为null的字段不更新
-            int i=tBlogMapper.updateByPrimaryKeySelective(tBlog);
-            if(i>0){
-                return new Result("修改成功",200);
-            }else{
-                return new Result("修改失败",400);
-            }
-        }
-        //新增
-        Date date=new Date();
-        tBlog.setReleasedate(date);
+       try{
+           //更新
+           if(tBlog.getId()!=null){
+               //后面带selective意思是为null的字段不更新
+               int i=tBlogMapper.updateByPrimaryKeySelective(tBlog);
+               this.blogIndex.updateIndex(tBlog);
+               if(i>0){
+                   return new Result("修改成功",200);
+               }else{
+                   return new Result("修改失败",400);
+               }
+           }
+           //新增
+           Date date=new Date();
+           tBlog.setReleasedate(date);
 
-        String text=tBlog.getText();
-        if(text.length()>70){
-            tBlog.setSummary(text.substring(0,70)+"...");
-        }else{
-            tBlog.setSummary(text);
-        }
-        tBlog.setClickhit(0);
-        tBlog.setReplyhit(0);
-        int i=tBlogMapper.insert(tBlog);
-        if(i!=1){
-            return new Result("新增失败",400);
-        }
-        return new Result("新增成功",200);
+           String text=tBlog.getText();
+           if(text.length()>70){
+               tBlog.setSummary(text.substring(0,70)+"...");
+           }else{
+               tBlog.setSummary(text);
+           }
+           tBlog.setClickhit(0);
+           tBlog.setReplyhit(0);
+           int i=tBlogMapper.insert(tBlog);
+           this.blogIndex.addIndex(tBlog);
+           if(i!=1){
+               return new Result("新增失败",400);
+           }else{
+               return new Result("新增成功",200);
+           }
+       }catch(Exception e){
+           e.printStackTrace();
+           return new Result("新增失败",400);
+       }
     }
 
 

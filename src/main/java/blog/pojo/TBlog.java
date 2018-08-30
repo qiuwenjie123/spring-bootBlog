@@ -6,10 +6,12 @@ import javax.persistence.*;
 
 @Table(name = "t_blog")
 public class TBlog implements Serializable {
+
     /**
      * 博客id
      */
     @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**
@@ -77,6 +79,8 @@ public class TBlog implements Serializable {
     private String text;
 
     private static final long serialVersionUID = 1L;
+
+
 
     /**
      * 获取博客类型
