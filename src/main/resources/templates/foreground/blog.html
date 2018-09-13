@@ -1,9 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-
-  <title>黑色个人博客HTML5模板</title>
+  <title th:text="'捷出青年|'+${blog.title}"></title>
   <meta name="keywords" content="个人博客模板,博客模板,响应式" />
   <meta name="description" content="个人博客模板，神秘、俏皮。" />
   <link th:href="@{/css/base.css}" rel="stylesheet">
